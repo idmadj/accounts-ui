@@ -28,13 +28,14 @@ Accounts.ui._options = {
   homeRoutePath: '/',
   onSubmitHook: () => {},
   onPreSignUpHook: () => new Promise(resolve => resolve()),
-  onPostSignUpHook: () => {},
+  onPostSignUpHook: () => redirect(`${Accounts.ui._options.homeRoutePath}`),
   onEnrollAccountHook: () => redirect(`${Accounts.ui._options.loginPath}`),
   onResetPasswordHook: () => redirect(`${Accounts.ui._options.loginPath}`),
   onVerifyEmailHook: () => redirect(`${Accounts.ui._options.profilePath}`),
   onSignedInHook: () => redirect(`${Accounts.ui._options.homeRoutePath}`),
   onSignedOutHook: () => redirect(`${Accounts.ui._options.homeRoutePath}`),
   emailPattern: new RegExp('[^@]+@[^@\.]{2,}\.[^\.@]+'),
+  browserHistory: null,
 };
 
 /**
@@ -71,6 +72,7 @@ Accounts.ui.config = function(options) {
     'onSignedOutHook',
     'validateField',
     'emailPattern',
+    'browserHistory'    // Should probably make the redirect method configurable instead
   ];
 
   Object.keys(options).forEach(function (key) {
@@ -229,6 +231,16 @@ Accounts.ui.config = function(options) {
       else {
         throw new Error(`Accounts.ui.config: "${hook}" not a function or an absolute or relative path`);
       }
+    }
+  }
+
+  // Deal with `browserHistory`
+  if (options.browserHistory) {
+    if (typeof options.browserHistory != 'object') {
+      throw new Error(`Accounts.ui.config: "browserHistory" not an object`);
+    }
+    else {
+      Accounts.ui._options.browserHistory = options.browserHistory;
     }
   }
 };

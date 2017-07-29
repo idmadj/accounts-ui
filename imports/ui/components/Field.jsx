@@ -14,7 +14,7 @@ export class Field extends React.Component {
     // Trigger an onChange on inital load, to support browser prefilled values.
     const { onChange } = this.props;
     if (this.input && onChange) {
-      onChange({ target: { value: this.input.value } });
+      onChange({ target: { value: this.input.value || "" } });
     }
   }
 

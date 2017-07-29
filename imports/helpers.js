@@ -102,6 +102,8 @@ export function redirect(redirect) {
           Package['kadira:flow-router'].FlowRouter.go(redirect);
         } else if (Package['kadira:flow-router-ssr']) {
           Package['kadira:flow-router-ssr'].FlowRouter.go(redirect);
+        } else if (Accounts.ui._options.browserHistory) {
+          Accounts.ui._options.browserHistory.push(redirect);
         } else if (browserHistory) {
           browserHistory.push(redirect);
         } else {
