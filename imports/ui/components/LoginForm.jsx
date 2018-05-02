@@ -813,7 +813,7 @@ class LoginForm extends Component {
           this.showMessage(`error.accounts.${error.reason}` || "unknown_error", 'error');
         }
         else {
-          this.showMessage(this.translate("info.emailSent"), 'success', 5000);
+          this.showMessage("info.emailSent", 'success', 5000);
           this.clearDefaultFieldValues();
         }
         onSubmitHook(error, formState);
@@ -827,22 +827,16 @@ class LoginForm extends Component {
           this.showMessage(`error.accounts.${error.reason}` || "unknown_error", 'error');
         }
         else {
-          this.showMessage(this.translate("info.emailSent"), 'success', 5000);
+          this.showMessage("info.emailSent", 'success', 5000);
           this.clearDefaultFieldValues();
         }
         onSubmitHook(error, formState);
         this.setState({ waiting: false });
       });
     } else {
-      let errMsg = null;
-      if (["USERNAME_AND_EMAIL_NO_PASSWORD"].includes(passwordSignupFields())) {
-        errMsg = this.translate("error.accounts.invalid_email");
-      }
-      else {
-        errMsg = this.translate("error.accounts.invalid_email");
-      }
+      let errMsg = "error.accounts.invalid_email";
       this.showMessage(errMsg,'warning');
-      onSubmitHook(errMsg, formState);
+      onSubmitHook(this.translate(errMsg), formState);
     }
   }
 
@@ -867,7 +861,7 @@ class LoginForm extends Component {
           this.showMessage(`error.accounts.${error.reason}` || "unknown_error", 'error');
         }
         else {
-          this.showMessage(this.translate("info.emailSent"), 'success', 5000);
+          this.showMessage("info.emailSent", 'success', 5000);
           this.clearDefaultFieldValues();
         }
         onSubmitHook(error, formState);
@@ -901,7 +895,7 @@ class LoginForm extends Component {
           onSubmitHook(error, formState);
         }
         else {
-          this.showMessage(this.translate('info.passwordChanged'), 'success', 5000);
+          this.showMessage('info.passwordChanged', 'success', 5000);
           onSubmitHook(null, formState);
           this.setState({ formState: STATES.PROFILE });
           Accounts._loginButtonsSession.set('resetPasswordToken', null);
