@@ -1,5 +1,16 @@
 # ChangeLog
 
+### v1.3.1
+08-Feb-2018
+
+* Fixed #126.
+
+### v1.3
+12-Nov-2017
+
+* Updated LoginForm to be compatible with react-meteor-data 0.2.15 #131.
+* Updated react-meteor-data dependency to 0.2.15.
+
 ### v1.2.23
 15-Jun-2017
 
