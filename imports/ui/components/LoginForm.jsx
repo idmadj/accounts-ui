@@ -112,7 +112,7 @@ export default class LoginForm extends Component {
     return T9n.get(text);
   }
 
-  validateField(field, value) {
+  validateField(field, value, fieldId) {
     const { formState } = this.state;
     switch(field) {
       case 'email':
@@ -124,6 +124,7 @@ export default class LoginForm extends Component {
         return validatePassword(value,
           this.showMessage.bind(this),
           this.clearMessage.bind(this),
+          fieldId
         );
       case 'username':
         return validateUsername(value,
@@ -879,7 +880,7 @@ export default class LoginForm extends Component {
       onSignedInHook,
     } = this.state;
 
-    if (!this.validateField('password', newPassword)){
+    if (!this.validateField('password', newPassword, 'newPassword')){
       onSubmitHook('err.minChar',formState);
       return;
     }

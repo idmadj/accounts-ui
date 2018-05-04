@@ -435,10 +435,10 @@ class NewLogin extends LoginForm {
           onChange: this.handleChange.bind(this, 'firstname'),
           message: this.getMessageForField('firstname'),
         },
-        ...super.fields()
+        ...super.fields(...arguments)
       };
     }
-    return super.fields();
+    return super.fields(...arguments);
   }
 
   translate(text) {
@@ -446,7 +446,7 @@ class NewLogin extends LoginForm {
     return this.props.t(text);
   }
 
-  signUp(options = {}) {
+  signUp(options = {}, ...args) {
     const { firstname = null } = this.state;
 
     if (firstname !== null) {
@@ -461,7 +461,7 @@ class NewLogin extends LoginForm {
     }
 
     if (!error) {
-      super.signUp(options);
+      super.signUp(options, ...args);
     }
   }
 
@@ -475,7 +475,7 @@ class NewLogin extends LoginForm {
               formState
           );
       default:
-          return super.validateField(field, value);
+          return super.validateField(...arguments);
     }
   }
 

@@ -72,13 +72,13 @@ export function validateEmail(email, showMessage, clearMessage) {
   }
 }
 
-export function validatePassword(password = '', showMessage, clearMessage){
+export function validatePassword(password = '', showMessage, clearMessage, fieldId = 'password'){
   if (password.length >= Accounts.ui._options.minimumPasswordLength) {
     return true;
   } else {
     // const errMsg = T9n.get("error.minChar").replace(/7/, Accounts.ui._options.minimumPasswordLength);
     const errMsg = "error.minChar"
-    showMessage(errMsg, 'warning', false, 'password');
+    showMessage(errMsg, 'warning', false, fieldId);
     return false;
   }
 };
