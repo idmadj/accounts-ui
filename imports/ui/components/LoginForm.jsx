@@ -27,7 +27,7 @@ function indexBy(array, key) {
   return result;
 }
 
-class LoginForm extends Component {
+export default class LoginForm extends Component {
   constructor(props) {
     super(props);
     let {
@@ -1016,14 +1016,10 @@ LoginForm.defaultProps = {
   changePasswordPath: null,
 };
 
-Accounts.ui.LoginForm = LoginForm;
-
-const LoginFormContainer = withTracker(() => {
+Accounts.ui.LoginForm = withTracker(() => {
   // Listen for the user to login/logout and the services list to the user.
   Meteor.subscribe('servicesList');
   return ({
     user: Accounts.user(),
   });
-}, LoginForm);
-Accounts.ui.LoginForm = LoginFormContainer;
-export default LoginFormContainer
+})(LoginForm);

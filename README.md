@@ -415,21 +415,25 @@ export default Accounts;
 
 ## Extra fields
 
-> Example provided by [@radzom](https://github.com/radzom).
+> Example initially provided by [@radzom](https://github.com/radzom), adapted for 1.2.23 by [@idmadj](https://github.com/idmadj).
 
 ```javascript
-import { Accounts, STATES } from 'meteor/std:accounts-ui';
+import { Accounts, STATES } from 'meteor/std:accounts-basic';
+import LoginForm from 'meteor/std:accounts-ui';
+import { withTracker } from 'meteor/react-meteor-data';
 
-class NewLogin extends Accounts.ui.LoginForm {
+class NewLogin extends LoginForm {
   fields() {
     const { formState } = this.state;
     if (formState == STATES.SIGN_UP) {
       return {
         firstname: {
           id: 'firstname',
-          hint: 'Enter firstname',
-          label: 'firstname',
-          onChange: this.handleChange.bind(this, 'firstname')
+          hint: this.translate('first_name_hint'),
+          label: this.translate('first_name'),
+          required: false,
+          onChange: this.handleChange.bind(this, 'firstname'),
+          message: this.getMessageForField('firstname'),
         },
         ...super.fields()
       };
@@ -444,14 +448,48 @@ class NewLogin extends Accounts.ui.LoginForm {
 
   signUp(options = {}) {
     const { firstname = null } = this.state;
+
     if (firstname !== null) {
-      options.profile = Object.assign(options.profile || {}, {
-        firstname: firstname
-      });
+      if (!this.validateField('firstname', firstname)) {
+        if (this.state.formState == STATES.SIGN_UP) {
+          this.state.onSubmitHook("error.firstname_too_short", this.state.formState);
+        }
+        error = true;
+      } else {
+        options.profile = Object.assign(options.profile || {}, { firstname });
+      }
     }
-    super.signUp(options);
+
+    if (!error) {
+      super.signUp(options);
+    }
+  }
+
+  validateField(field, value) {
+    const { formState } = this.state;
+    switch (field) {
+      case 'firstname':
+          return this.validateFirstname(value,
+              this.showMessage.bind(this),
+              this.clearMessage.bind(this),
+              formState
+          );
+      default:
+          return super.validateField(field, value);
+    }
+  }
+
+  validateFirstname(firstname, showMessage) {
+    if (!firstname || (firstname && firstname.length >= 2)) {
+      return true;
+    } else {
+      showMessage("error.firstname_too_short", 'warning', false, "firstname");
+      return false;
+    }
   }
 }
+
+Accounts.ui.LoginForm = withTracker(Accounts.ui.LoginForm.prototype.getMeteorData)(NewLogin);
 ```
 
 And on the server you can store the extra fields like this:
