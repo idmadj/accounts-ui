@@ -84,17 +84,18 @@ export default class LoginForm extends Component {
 
     // Add default field values once the form did mount on the client
     this.setState(prevState => ({
-      ...this.getDefaultFieldValues(),
+      ...LoginForm.getDefaultFieldValues(),
     }));
   }
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    if (nextProps.formState && nextProps.formState !== this.state.formState) {
-      this.setState({
-        formState: nextProps.formState,
-        ...this.getDefaultFieldValues(),
-      });
-    }
+  static getDerivedStateFromProps({ formState }, { formState: stateFormState }) {
+    return (formState && formState !== stateFormState) ?
+        {
+          formState: formState,
+          ...LoginForm.getDefaultFieldValues(),
+        }
+      :
+        null;
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -217,7 +218,7 @@ export default class LoginForm extends Component {
         break;
     }
     this.setState({ [field]: value });
-    this.setDefaultFieldValues({ [field]: value });
+    LoginForm.setDefaultFieldValues({ [field]: value });
   }
 
   fields() {
@@ -472,13 +473,13 @@ export default class LoginForm extends Component {
   /**
    * Helper to store field values while using the form.
    */
-  setDefaultFieldValues(defaults) {
+  static setDefaultFieldValues(defaults) {
     if (typeof defaults !== 'object') {
       throw new Error('Argument to setDefaultFieldValues is not of type object');
     } else if (typeof localStorage !== 'undefined' && localStorage) {
       localStorage.setItem('accounts_ui', JSON.stringify({
         passwordSignupFields: passwordSignupFields(),
-        ...this.getDefaultFieldValues(),
+        ...LoginForm.getDefaultFieldValues(),
         ...defaults,
       }));
     }
@@ -487,7 +488,7 @@ export default class LoginForm extends Component {
   /**
    * Helper to get field values when switching states in the form.
    */
-  getDefaultFieldValues() {
+  static getDefaultFieldValues() {
     if (typeof localStorage !== 'undefined' && localStorage) {
       const defaultFieldValues = JSON.parse(localStorage.getItem('accounts_ui') || null);
       if (defaultFieldValues
@@ -510,7 +511,7 @@ export default class LoginForm extends Component {
     event.preventDefault();
     this.setState({
       formState: STATES.SIGN_UP,
-      ...this.getDefaultFieldValues(),
+      ...LoginForm.getDefaultFieldValues(),
     });
     this.clearMessages();
   }
@@ -519,7 +520,7 @@ export default class LoginForm extends Component {
     event.preventDefault();
     this.setState({
       formState: STATES.SIGN_IN,
-      ...this.getDefaultFieldValues(),
+      ...LoginForm.getDefaultFieldValues(),
     });
     this.clearMessages();
   }
@@ -528,7 +529,7 @@ export default class LoginForm extends Component {
     event.preventDefault();
     this.setState({
       formState: STATES.PASSWORD_RESET,
-      ...this.getDefaultFieldValues(),
+      ...LoginForm.getDefaultFieldValues(),
     });
     this.clearMessages();
   }
@@ -537,7 +538,7 @@ export default class LoginForm extends Component {
     event.preventDefault();
     this.setState({
       formState: STATES.PASSWORD_CHANGE,
-      ...this.getDefaultFieldValues(),
+      ...LoginForm.getDefaultFieldValues(),
     });
     this.clearMessages();
   }
@@ -959,19 +960,6 @@ export default class LoginForm extends Component {
       clearTimeout(this.hideMessageTimout);
     }
     this.setState({ messages: [] });
-  }
-
-  componentWillMount() {
-    // XXX Check for backwards compatibility.
-    if (Meteor.isClient) {
-      const container = document.createElement('div');
-      ReactDOM.render(<Accounts.ui.Field message="test" />, container);
-      if (container.getElementsByClassName('message').length == 0) {
-        // Found backwards compatibility issue with 1.3.x
-        console.warn(`Implementations of Accounts.ui.Field must render message in v1.2.11.
-          https://github.com/studiointeract/accounts-ui/#deprecations`);
-      }
-    }
   }
 
   componentWillUnmount() {

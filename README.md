@@ -456,7 +456,7 @@ class NewLogin extends LoginForm {
         }
         error = true;
       } else {
-        options.profile = Object.assign(options.profile || {}, { firstname });
+        options.profile = { ...options.profile, firstname });
       }
     }
 
