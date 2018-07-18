@@ -446,6 +446,16 @@ export default class LoginForm extends Component {
     return indexBy(loginButtons, 'id');
   }
 
+  backNavigation() {
+    switch(this.state.formState) {
+      case STATES.PASSWORD_CHANGE:
+      case STATES.PASSWORD_RESET:
+          return this.switchToSignIn.bind(this);
+      default:
+          return null;
+    }
+  }
+
   showSignInLink(){
     return this.state.formState == STATES.SIGN_IN && Package['accounts-password'];
   }
@@ -981,6 +991,8 @@ export default class LoginForm extends Component {
         oauthServices={this.oauthButtons()}
         fields={this.fields()} 
         buttons={this.buttons()}
+        backNavigation={this.backNavigation()}
+        {...this.props}
         {...this.state}
         message={message}
         translate={text => this.translate(text)}
