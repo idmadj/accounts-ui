@@ -36,6 +36,7 @@ Accounts.ui._options = {
   onSignedOutHook: () => redirect(`${Accounts.ui._options.homeRoutePath}`),
   emailPattern: new RegExp('[^@]+@[^@\.]{2,}\.[^\.@]+'),
   browserHistory: null,
+  translate: text => text
 };
 
 /**
@@ -72,7 +73,8 @@ Accounts.ui.config = function(options) {
     'onSignedOutHook',
     'validateField',
     'emailPattern',
-    'browserHistory'    // Should probably make the redirect method configurable instead
+    'browserHistory',    // Should probably make the redirect method configurable instead
+    'translate'
   ];
 
   Object.keys(options).forEach(function (key) {
@@ -241,6 +243,16 @@ Accounts.ui.config = function(options) {
     }
     else {
       Accounts.ui._options.browserHistory = options.browserHistory;
+    }
+  }
+
+  // Deal with `translate`
+  if (options.translate) {
+    if (typeof options.translate != 'function') {
+      throw new Error(`Accounts.ui.config: "translate" not an function`);
+    }
+    else {
+      Accounts.ui._options.translate = options.translate;
     }
   }
 };

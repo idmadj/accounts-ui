@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Accounts } from 'meteor/accounts-base';
-import { T9n } from 'meteor/softwarerero:accounts-t9n';
 import { hasPasswordService } from '../../helpers.js';
 
 export class PasswordOrService extends React.Component {
@@ -19,7 +18,7 @@ export class PasswordOrService extends React.Component {
     if (this.props.translate) {
       return this.props.translate(text);
     }
-    return T9n.get(text);
+    return Accounts.ui._options.translate(text);
   }
 
   render () {

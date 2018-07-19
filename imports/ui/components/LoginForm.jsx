@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Accounts } from 'meteor/accounts-base';
-import { T9n } from 'meteor/softwarerero:accounts-t9n';
 import { KEY_PREFIX } from '../../login_session.js';
 import './Form.jsx';
 
@@ -110,7 +109,7 @@ export default class LoginForm extends Component {
     // if (this.props.t) {
     //   return this.props.t(text);
     // }
-    return T9n.get(text);
+    return Accounts.ui._options.translate(text);
   }
 
   validateField(field, value, fieldId) {
