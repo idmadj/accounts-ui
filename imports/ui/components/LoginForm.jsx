@@ -105,11 +105,11 @@ export default class LoginForm extends Component {
     }
   }
 
-  translate(text) {
+  translate() {
     // if (this.props.t) {
     //   return this.props.t(text);
     // }
-    return Accounts.ui._options.translate(text);
+    return Accounts.ui._options.translate(...arguments);
   }
 
   validateField(field, value, fieldId) {
@@ -931,8 +931,8 @@ export default class LoginForm extends Component {
     }
   }
 
-  showMessage(message, type, clearTimeout, field){
-    message = this.translate(message).trim();
+  showMessage(message, type, clearTimeout, field, messageParams){
+    message = this.translate(message, messageParams).trim();
     if (message) {
       this.setState(({ messages = [] }) => {
         messages.push({
