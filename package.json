@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/studiointeract/accounts-ui",
   "dependencies": {
-    "prop-types": "^15.5.8"
+    "prop-types": "^15.5.8",
+    "lodash": "^4.17.10"
   },
   "peerDependencies": {
     "react": "^15.0.0",

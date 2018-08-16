@@ -67,7 +67,7 @@ export function validateEmail(email, showMessage, clearMessage) {
     showMessage("error.emailRequired", 'warning', false, 'email');
     return false;
   } else {
-    showMessage("error.accounts.Invalid email", 'warning', false, 'email');
+    showMessage("error.accounts.invalidEmail", 'warning', false, 'email');
     return false;
   }
 }
@@ -77,7 +77,7 @@ export function validatePassword(password = '', showMessage, clearMessage, field
     return true;
   } else {
     // const errMsg = T9n.get("error.minChar").replace(/7/, Accounts.ui._options.minimumPasswordLength);
-    const errMsg = "error.minChar"
+    const errMsg = "error.minChar";
     showMessage(errMsg, 'warning', false, fieldId);
     return false;
   }
