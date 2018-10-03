@@ -642,7 +642,7 @@ export default class LoginForm extends Component {
       Meteor.loginWithPassword(loginSelector, password, (error, result) => {
         onSubmitHook(error,formState);
         if (error) {
-          this.showMessage(`error.accounts.${_.camelCase(error.reason)}` || "unknown_error", 'error');
+          this.showMessage(`error.accounts.${_.camelCase(error.reason) || "unknownError"}`, 'error');
         }
         else {
           loginResultCallback(() => this.state.onSignedInHook());
@@ -703,7 +703,7 @@ export default class LoginForm extends Component {
     loginWithService(options, (error) => {
       onSubmitHook(error,formState);
       if (error) {
-        this.showMessage(`error.accounts.${_.camelCase(error.reason)}` || "unknown_error");
+        this.showMessage(`error.accounts.${_.camelCase(error.reason) || "unknownError"}`);
       } else {
         this.setState({ formState: STATES.PROFILE });
         this.clearDefaultFieldValues();
@@ -770,12 +770,12 @@ export default class LoginForm extends Component {
     const SignUp = function(_options) {
       Accounts.createUser(_options, (error) => {
         if (error) {
-          this.showMessage(`error.accounts.${_.camelCase(error.reason)}` || "unknown_error", 'error');
+          this.showMessage(`error.accounts.${_.camelCase(error.reason) || "unknownError"}`, 'error');
           if (this.translate(`error.accounts.${_.camelCase(error.reason)}`)) {
             onSubmitHook(`error.accounts.${_.camelCase(error.reason)}`, formState);
           }
           else {
-            onSubmitHook("unknown_error", formState);
+            onSubmitHook(`error.accounts.unknownError`, formState);
           }
         }
         else {
@@ -821,7 +821,7 @@ export default class LoginForm extends Component {
 
       Accounts.loginWithoutPassword({ email: email }, (error) => {
         if (error) {
-          this.showMessage(`error.accounts.${_.camelCase(error.reason)}` || "unknown_error", 'error');
+          this.showMessage(`error.accounts.${_.camelCase(error.reason) || "unknownError"}`, 'error');
         }
         else {
           this.showMessage("info.emailSent", 'success', 5000);
@@ -835,7 +835,7 @@ export default class LoginForm extends Component {
 
       Accounts.loginWithoutPassword({ email: usernameOrEmail, username: usernameOrEmail }, (error) => {
         if (error) {
-          this.showMessage(`error.accounts.${_.camelCase(error.reason)}` || "unknown_error", 'error');
+          this.showMessage(`error.accounts.${_.camelCase(error.reason) || "unknownError"}`, 'error');
         }
         else {
           this.showMessage("info.emailSent", 'success', 5000);
@@ -869,7 +869,7 @@ export default class LoginForm extends Component {
 
       Accounts.forgotPassword({ email: email }, (error) => {
         if (error) {
-          this.showMessage(`error.accounts.${_.camelCase(error.reason)}` || "unknown_error", 'error');
+          this.showMessage(`error.accounts.${_.camelCase(error.reason) || "unknownError"}`, 'error');
         }
         else {
           this.showMessage("info.emailSent", 'success', 5000);
@@ -902,7 +902,7 @@ export default class LoginForm extends Component {
     if (token) {
       Accounts.resetPassword(token, newPassword, (error) => {
         if (error) {
-          this.showMessage(`error.accounts.${_.camelCase(error.reason)}` || "unknown_error", 'error');
+          this.showMessage(`error.accounts.${_.camelCase(error.reason) || "unknownError"}`, 'error');
           onSubmitHook(error, formState);
         }
         else {
@@ -918,7 +918,7 @@ export default class LoginForm extends Component {
     else {
       Accounts.changePassword(password, newPassword, (error) => {
         if (error) {
-          this.showMessage(`error.accounts.${_.camelCase(error.reason)}` || "unknown_error", 'error');
+          this.showMessage(`error.accounts.${_.camelCase(error.reason) || "unknownError"}`, 'error');
           onSubmitHook(error, formState);
         }
         else {
