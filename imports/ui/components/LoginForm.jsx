@@ -72,13 +72,6 @@ export default class LoginForm extends Component {
         }));
         Session.set(KEY_PREFIX + 'state', null);
         break;
-
-      case 'justVerifiedEmail':
-        this.setState(prevState => ({
-          formState: STATES.PROFILE
-        }));
-        Session.set(KEY_PREFIX + 'state', null);
-        break;
     }
 
     // Add default field values once the form did mount on the client

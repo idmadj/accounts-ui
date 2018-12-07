@@ -20,7 +20,6 @@ const VALID_KEYS = [
   // dialogs with messages (info and error)
   'resetPasswordToken',
   'enrollAccountToken',
-  'justVerifiedEmail',
   'justResetPassword',
 
   'configureLoginServiceDialogVisible',
@@ -92,12 +91,7 @@ if (Meteor.isClient){
 
   Accounts.onEmailVerificationLink(function (token, done) {
     Accounts.verifyEmail(token, function (error) {
-      if (! error) {
-        Accounts._loginButtonsSession.set('justVerifiedEmail', true);
-        Session.set(KEY_PREFIX + 'state', 'justVerifiedEmail');
-        Accounts.ui._options.onSignedInHook();
-      }
-      else {
+      if (!error) {
         Accounts.ui._options.onVerifyEmailHook();
       }
 
