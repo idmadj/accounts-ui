@@ -770,16 +770,14 @@ export default class LoginForm extends Component {
           else {
             onSubmitHook(`error.accounts.unknownError`, formState);
           }
+          this.setState({ waiting: false });
         }
         else {
           onSubmitHook(null, formState);
-          this.setState({ formState: STATES.PROFILE, password: null });
-          let user = Accounts.user();
-          loginResultCallback(this.state.onPostSignUpHook.bind(this, _options, user));
+          this.setState({ formState: STATES.PROFILE, password: null, waiting: false });
+          loginResultCallback(this.state.onPostSignUpHook.bind(this, _options, Accounts.user()));
           this.clearDefaultFieldValues();
         }
-
-        this.setState({ waiting: false });
       });
     };
 
