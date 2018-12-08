@@ -883,6 +883,8 @@ export default class LoginForm extends Component {
       onSignedInHook,
     } = this.state;
 
+    this.clearMessages();
+
     if (!this.validateField('password', newPassword, 'newPassword')){
       onSubmitHook('error.minChar',formState);
       return;
