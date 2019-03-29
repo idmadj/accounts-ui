@@ -701,7 +701,7 @@ export default class LoginForm extends Component {
         this.setState({ formState: STATES.PROFILE });
         this.clearDefaultFieldValues();
         loginResultCallback(() => {
-          Meteor.setTimeout(() => this.state.onSignedInHook(), 100);
+          Meteor.setTimeout(() => this.state.onSignedInHook(serviceName), 100);
         });
       }
     });

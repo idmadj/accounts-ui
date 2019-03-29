@@ -128,8 +128,8 @@ import { Accounts } from 'meteor/std:accounts-ui';
 * **onVerifyEmailHook**&nbsp;&nbsp;&nbsp; function()  
   Change the default redirect behavior when the user clicks the link to verify their email sent from the system, i.e. you want a custom path after the user verifies their email or login with `EMAIL_ONLY_NO_PASSWORD`. Default is **profilePath**.
 
-* **onSignedInHook**&nbsp;&nbsp;&nbsp; function()  
-  Change the default redirect behavior when the user successfully login to your application, i.e. you want a custom path for the reset password form. Default is **profilePath**.
+* **onSignedInHook**&nbsp;&nbsp;&nbsp; function(service)  
+  Change the default redirect behavior when the user successfully login to your application, i.e. you want a custom path for the reset password form. Default is **profilePath**. `service` is the service name or `null` if email/username.
 
 * **onSignedOutHook**&nbsp;&nbsp;&nbsp; function()  
   Change the default redirect behavior when the user signs out using the LoginForm, i.e. you want a custom path after the user signs out. Default is **homeRoutePath**.
