@@ -686,9 +686,9 @@ export default class LoginForm extends Component {
       requestPermissions: {[serviceName]: requestPermissions}, 
       requestOfflineToken: {[serviceName]: requestOfflineToken}, 
       forceApprovalPrompt: {[serviceName]: forceApprovalPrompt}, 
-      loginStyle
     } = Accounts.ui._options;
 
+    let { loginStyle } = Accounts.ui._options;
     loginStyle = (typeof loginStyle === "function") ? loginStyle() : loginStyle;
 
     const options = {
