@@ -670,33 +670,39 @@ export default class LoginForm extends Component {
   }
 
   oauthSignIn(serviceName) {
-    const { user } = this.props;
-    const { formState, waiting, onSubmitHook } = this.state;
+    const { formState, onSubmitHook } = this.state;
     //Thanks Josh Owens for this one.
     function capitalService() {
       return serviceName.charAt(0).toUpperCase() + serviceName.slice(1);
     }
 
-    if(serviceName === 'meteor-developer'){
+    if (serviceName === 'meteor-developer') {
       serviceName = 'meteorDeveloperAccount';
     }
 
-    const loginWithService = Meteor["loginWith" + capitalService()];
+    const loginWithService = Meteor[`loginWith${capitalService()}`];
 
-    let options = {}; // use default scope unless specified
-    if (Accounts.ui._options.requestPermissions[serviceName])
-      options.requestPermissions = Accounts.ui._options.requestPermissions[serviceName];
-    if (Accounts.ui._options.requestOfflineToken[serviceName])
-      options.requestOfflineToken = Accounts.ui._options.requestOfflineToken[serviceName];
-    if (Accounts.ui._options.forceApprovalPrompt[serviceName])
-      options.forceApprovalPrompt = Accounts.ui._options.forceApprovalPrompt[serviceName];
+    const {
+      requestPermissions: {[serviceName]: requestPermissions}, 
+      requestOfflineToken: {[serviceName]: requestOfflineToken}, 
+      forceApprovalPrompt: {[serviceName]: forceApprovalPrompt}, 
+      loginStyle
+    } = Accounts.ui._options;
 
+    loginStyle = (typeof loginStyle === "function") ? loginStyle() : loginStyle;
+
+    const options = {
+      ...(requestPermissions && {requestPermissions}),
+      ...(requestOfflineToken && {requestOfflineToken}),
+      ...(forceApprovalPrompt && {forceApprovalPrompt}),
+      ...(loginStyle && { loginStyle })
+    };
+      
     this.clearMessages();
-    const self = this
-    loginWithService(options, (error) => {
-      onSubmitHook(error,formState);
+    loginWithService(options, error => {
+      onSubmitHook(error, formState);
       if (error) {
-        this.showMessage(`error.accounts.${_.camelCase(error.reason) || "unknownError"}`);
+        this.showMessage(`error.accounts.${_.camelCase(error.reason) || "unknownError"}`);
       } else {
         this.setState({ formState: STATES.PROFILE });
         this.clearDefaultFieldValues();

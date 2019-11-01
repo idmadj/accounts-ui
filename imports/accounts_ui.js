@@ -74,7 +74,8 @@ Accounts.ui.config = function(options) {
     'validateField',
     'emailPattern',
     'browserHistory',    // Should probably make the redirect method configurable instead
-    'translate'
+    'translate',
+    'loginStyle'  // Allows the use of 'redirect' style in environments that don't support popups (extension launchWebAuthFlow, iOS PWA)
   ];
 
   Object.keys(options).forEach(function (key) {
@@ -253,6 +254,16 @@ Accounts.ui.config = function(options) {
     }
     else {
       Accounts.ui._options.translate = options.translate;
+    }
+  }
+
+  // Deal with `loginStyle`
+  if (options.loginStyle) {
+    if ((typeof options.loginStyle !== 'string') && (typeof options.loginStyle !== 'function')) {
+      throw new Error(`Accounts.ui.config: "loginStyle" not a string or function`);
+    }
+    else {
+      Accounts.ui._options.loginStyle = options.loginStyle;
     }
   }
 };
