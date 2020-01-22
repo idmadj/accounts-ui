@@ -1,7 +1,5 @@
 # React Accounts UI
 
-Current version 1.3.0
-
 ## Features
 
 1. **[Easy to use](#using-react-accounts-ui)**, mixing the ideas of useraccounts configuration and accounts-ui that everyone already knows and loves.
@@ -145,7 +143,7 @@ This is the default setting for **passwordSignupFields** in the [configuration](
 
 ## Using React Accounts UI
 
-### Example setup (Meteor 1.3)
+### Example setup (Meteor 1.9)
 
 `meteor add accounts-password`  
 `meteor add std:accounts-ui`
@@ -166,9 +164,9 @@ if (Meteor.isClient) {
 
 ```
 
-### Example setup using React Router (Meteor 1.3)
+### Example setup using React Router (Meteor 1.9)
 
-Following the [Application Structure from the Meteor Guide](http://guide.meteor.com/v1.3/structure.html).
+Following the [Application Structure from the Meteor Guide](http://guide.meteor.com/structure.html).
 
 `npm i --save react react-dom react-router`  
 `meteor add accounts-password`  
@@ -209,7 +207,7 @@ Meteor.startup( () => {
 You can learn more about the remaining components here in the tutorial on [React Router Basics](https://themeteorchef.com/snippets/react-router-basics/) by the Meteor Chef.
 
 
-### Example setup using FlowRouter (Meteor 1.3)
+### Example setup using FlowRouter (Meteor 1.9)
 
 `npm i --save react react-dom`
 `meteor add accounts-password`  
@@ -299,13 +297,13 @@ FlowRouter.route("/signup", {
 Package.describe({
   name: 'author:accounts-bootstrap',
   version: '1.0.0',
-  summary: 'Bootstrap – Accounts UI for React in Meteor 1.3',
+  summary: 'Bootstrap – Accounts UI for React in Meteor',
   git: 'https://github.com/author/accounts-bootstrap',
   documentation: 'README.md'
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.3');
+  api.versionsFrom('1.9');
   api.use('ecmascript');
   api.use('std:accounts-ui');
 
@@ -320,7 +318,7 @@ Package.onUse(function(api) {
 
 {
   "name": "accounts-bootstrap",
-  "description": "Bootstrap – Accounts UI for React in Meteor 1.3",
+  "description": "Bootstrap – Accounts UI for React in Meteor",
   "repository": {
     "type": "git",
     "url": "https://github.com/author/accounts-bootstrap.git"
