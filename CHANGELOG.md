@@ -1,5 +1,14 @@
 # ChangeLog
 
+### v1.4.0
+22-Jan-2020
+
+* Updated LoginForm to be compatible with react-meteor-data 2.0.1.
+* Updated react-meteor-data dependency to 2.0.1.
+* Updated react, react-dom peer dependencies to ^16.8.0.
+* Removed unused tmeasday:check-npm-versions dependency.
+* Updated 'Extra fields' example in README to properly use tracker functionality.
+
 ### v1.3.1
 08-Feb-2018
 

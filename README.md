@@ -414,12 +414,9 @@ export default Accounts;
     * Accounts.ui.SocialButtons
 
 ## Extra fields
-
-> Example initially provided by [@radzom](https://github.com/radzom), adapted for 1.2.23 by [@idmadj](https://github.com/idmadj).
-
 ```javascript
 import { Accounts, STATES } from 'meteor/std:accounts-basic';
-import LoginForm from 'meteor/std:accounts-ui';
+import LoginForm, { getMeteorData } from 'meteor/std:accounts-ui';
 import { withTracker } from 'meteor/react-meteor-data';
 
 class NewLogin extends LoginForm {
@@ -489,7 +486,7 @@ class NewLogin extends LoginForm {
   }
 }
 
-Accounts.ui.LoginForm = withTracker(Accounts.ui.LoginForm.prototype.getMeteorData)(NewLogin);
+Accounts.ui.LoginForm = withTracker(getMeteorData)(NewLogin);
 ```
 
 And on the server you can store the extra fields like this:

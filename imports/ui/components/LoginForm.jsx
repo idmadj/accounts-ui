@@ -1015,10 +1015,12 @@ LoginForm.defaultProps = {
   changePasswordPath: null,
 };
 
-Accounts.ui.LoginForm = withTracker(() => {
+export const getMeteorData = () => {
   // Listen for the user to login/logout and the services list to the user.
   Meteor.subscribe('servicesList');
   return ({
     user: Accounts.user(),
   });
-})(LoginForm);
+};
+
+Accounts.ui.LoginForm = withTracker(getMeteorData)(LoginForm);

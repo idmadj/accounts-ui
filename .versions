@@ -40,7 +40,7 @@ ordered-dict@1.1.0
 promise@0.10.1
 random@1.1.0
 rate-limit@1.0.8
-react-meteor-data@0.2.15
+react-meteor-data@2.0.1
 reactive-dict@1.2.0
 reactive-var@1.0.11
 reload@1.2.0
@@ -50,7 +50,6 @@ service-configuration@1.0.11
 session@1.1.7
 socket-stream-client@0.1.0
 std:accounts-ui@1.3.1
-tmeasday:check-npm-versions@0.3.0
 tracker@1.1.3
 underscore@1.0.10
 url@1.2.0
