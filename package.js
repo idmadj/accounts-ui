@@ -1,13 +1,13 @@
 Package.describe({
   name: 'std:accounts-ui',
-  version: '1.4.0',
-  summary: 'Accounts UI for React in Meteor 1.9+',
-  git: 'https://github.com/studiointeract/accounts-ui',
+  version: '1.4.1',
+  summary: 'Accounts UI for React in Meteor 1.11+',
+  git: 'https://github.com/idmadj/accounts-ui',
   documentation: 'README.md'
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.9');
+  api.versionsFrom('1.11');
   api.use('ecmascript');
   api.use('accounts-base');
   api.use('check');
